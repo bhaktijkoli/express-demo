@@ -3,6 +3,7 @@ import path from 'path'
 import Logger from '@utils/logger.utils'
 import createError from 'http-errors'
 import authRoutes from '@routes/auth.routes'
+import followRoutes from '@routes/follow.routes'
 
 import ctx from '@middlewares/ctx.middleware'
 import logging from '@middlewares/logging.middleware'
@@ -32,6 +33,7 @@ const start = () => {
 
   // Routes
   authRoutes(app)
+  followRoutes(app)
 
   // Start Listening
   app.listen(port, () => {

@@ -5,6 +5,73 @@ const NOT_AUTHORIZED = 'You are not authorized to perform this action'
 const ALREADY_LIKED = 'You have already liked this post'
 const NOT_LIKED = 'You have not liked this post before'
 
+const get = async (req: Request, res: Response) => {
+  // Check if Post Exists
+  const { id } = req.params
+  const post = await db.post.findFirst({
+    where: { id },
+    select: {
+      title: true,
+      description: true,
+      createdAt: true,
+      updatedAt: true,
+      comments: {
+        select: {
+          message: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true
+            }
+          }
+        }
+      },
+      likes: {
+        select: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true
+            }
+          }
+        }
+      }
+    }
+  })
+  if (post === null) {
+    res.status(404)
+    return
+  }
+  res.status(200).json({ data: post })
+}
+
+const all = async (req: Request, res: Response) => {
+  const data = await db.post.findMany({
+    select: {
+      title: true,
+      description: true,
+      user: {
+        select: {
+          id: true,
+          name: true,
+          email: true
+        }
+      },
+      createdAt: true,
+      updatedAt: true,
+      _count: {
+        select: {
+          likes: true,
+          comments: true
+        }
+      }
+    }
+  })
+  res.status(200).json({ data })
+}
+
 const add = async (req: Request, res: Response) => {
   // Get Title, Description from Body
   const { title, description } = req.body
@@ -132,6 +199,8 @@ const comment = async (req: Request, res: Response) => {
 }
 
 export default {
+  get,
+  all,
   add,
   remove,
   like,

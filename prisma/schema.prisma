@@ -19,6 +19,9 @@ model User {
   following Follows[] @relation("following")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  Comment   Comment[]
+  posts     Post[]
+  likes     Like[]    @relation("user")
 }
 
 model Follows {
@@ -28,4 +31,36 @@ model Follows {
   followingId String
 
   @@id([followerId, followingId])
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  title       String    @db.VarChar(255)
+  description String    @db.VarChar(255)
+  user        User      @relation(fields: [userId], references: [id])
+  comments    Comment[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  userId      String
+  likes       Like[]    @relation("post")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  message   String   @db.VarChar(255)
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  Post      Post?    @relation(fields: [postId], references: [id])
+  postId    String?
+}
+
+model Like {
+  post   Post   @relation("post", fields: [postId], references: [id])
+  postId String
+  user   User   @relation("user", fields: [userId], references: [id])
+  userId String
+
+  @@id([postId, userId])
 }

@@ -53,9 +53,15 @@
       "@controllers/*": [
         "http/controllers/*"
       ],
+      "@middlewares/*": [
+        "http/middlewares/*"
+      ],
       "@db": [
         "db"
-      ]
+      ],
+      "@types": [
+        "types"
+      ],
     }
   },
   "include": [

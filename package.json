@@ -57,7 +57,9 @@
     "@utils": "./build/utils",
     "@routes": "./build/http/routes",
     "@controllers": "./build/http/controllers",
-    "@db": "./build/db"
+    "@middlewares": "./build/http/middlewares",
+    "@db": "./build/db",
+    "@types": "./build/types"
   },
   "lint-staged": {
     "src/**/*.{js,ts}": [

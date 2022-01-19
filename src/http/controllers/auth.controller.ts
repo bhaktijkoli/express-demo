@@ -1,5 +1,5 @@
 import db from '@db'
-import type { Request, Response } from 'express'
+import type { Request, Response } from '@types'
 import bcrypt from 'bcryptjs'
 import jwtUtils from '@utils/jwt.utils'
 
@@ -28,6 +28,16 @@ const authenticate = async (req: Request, res: Response) => {
   res.status(200).json({ accessToken })
 }
 
+const user = async (req: Request, res: Response) => {
+  const data = await db.user.findFirst({
+    where: {
+      id: req.ctx.user.id
+    }
+  })
+  res.status(200).json({ data })
+}
+
 export default {
-  authenticate
+  authenticate,
+  user
 }

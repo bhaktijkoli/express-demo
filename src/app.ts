@@ -4,17 +4,22 @@ import Logger from '@utils/logger.utils'
 import createError from 'http-errors'
 import authRoutes from '@routes/auth.routes'
 
+import ctx from '@middlewares/ctx.middleware'
+import logging from '@middlewares/logging.middleware'
+
 const start = () => {
   // Create Express instance
   const app = express()
 
-  // Middlwares
-  app.use(express.json())
-  app.use(express.urlencoded({ extended: false }))
-
   // View Engine Setup
   app.set('views', path.join(__dirname, 'views'))
   app.set('view engine', 'hbs')
+
+  // Middlwares
+  app.use(logging)
+  app.use(ctx)
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: false }))
 
   // Base Route
   app.get('/', (_: Request, res: Response) => {

@@ -9,13 +9,20 @@ import { User } from '.prisma/client'
 import Logger from './logger.utils'
 
 const check = async (token: string) => {
-  const { id }: any = jwt.verify(token, getPublicKey(), {
-    algorithms: ['RS256']
-  })
-  const user = await db.user.findFirst({
-    where: { id }
-  })
-  return user
+  try {
+    const { id }: any = jwt.verify(token, getPublicKey(), {
+      algorithms: ['RS256']
+    })
+    const user = await db.user.findFirst({
+      where: { id }
+    })
+    return user
+  } catch (error) {
+    if (error.name !== 'JsonWebTokenError') {
+      Logger.error(error)
+    }
+  }
+  return null
 }
 
 const create = (user: User) => {

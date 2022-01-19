@@ -11,13 +11,18 @@
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:lint": "eslint src --ext .ts --fix",
+    "prisma:dev": "prisma migrate dev --name v1",
+    "prisma:reset": "prisma migrate reset --force",
+    "prisma:studio": "prisma studio",
     "prepare": "husky install"
   },
   "dependencies": {
+    "@prisma/client": "3.8.1",
     "dotenv": "^14.2.0",
     "express": "^4.17.2",
     "hbs": "^4.2.0",
     "http-errors": "^2.0.0",
+    "prisma": "^3.8.1",
     "tslog": "^3.3.1"
   },
   "devDependencies": {

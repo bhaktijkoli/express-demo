@@ -1,0 +1,26 @@
+{
+  "name": "express-demo",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node build/index.js",
+    "dev": "ts-node-dev --notify --respawn --exit-child src/index.ts",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "dotenv": "^14.2.0",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.2",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.10",
+    "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8"
+  },
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  }
+}

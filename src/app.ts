@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express'
+import Logger from '@utils/logger.utils'
 
 const start = () => {
   // Create Express instance
@@ -19,7 +20,7 @@ const start = () => {
 
   // Start Listening
   app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`)
+    Logger.debug(`App listening at http://localhost:${port}`)
   })
 }
 

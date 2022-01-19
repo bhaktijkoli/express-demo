@@ -47,6 +47,15 @@
       "@utils/*": [
         "utils/*"
       ],
+      "@routes/*": [
+        "http/routes/*"
+      ],
+      "@controllers/*": [
+        "http/controllers/*"
+      ],
+      "@db": [
+        "db"
+      ]
     }
   },
   "include": [

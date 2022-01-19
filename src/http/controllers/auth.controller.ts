@@ -29,11 +29,29 @@ const authenticate = async (req: Request, res: Response) => {
 }
 
 const user = async (req: Request, res: Response) => {
-  const data = await db.user.findFirst({
+  const user = await db.user.findFirst({
     where: {
       id: req.ctx.user.id
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      createdAt: true,
+      updatedAt: true
     }
   })
+  const followers = await db.follows.count({
+    where: {
+      followingId: user.id
+    }
+  })
+  const followings = await db.follows.count({
+    where: {
+      followerId: user.id
+    }
+  })
+  const data = { ...user, followers, followings }
   res.status(200).json({ data })
 }
 

@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express'
 import path from 'path'
 import Logger from '@utils/logger.utils'
 import createError from 'http-errors'
+import authRoutes from '@routes/auth.routes'
 
 const start = () => {
   // Create Express instance
@@ -23,6 +24,9 @@ const start = () => {
   // Get Port From ENV
   const port = parseInt(process.env.PORT || '3000')
   app.set('port', port)
+
+  // Routes
+  authRoutes(app)
 
   // Start Listening
   app.listen(port, () => {

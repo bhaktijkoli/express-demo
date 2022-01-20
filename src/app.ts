@@ -14,7 +14,7 @@ const start = () => {
   const app = express()
 
   // View Engine Setup
-  app.set('views', path.join(__dirname, 'views'))
+  app.set('views', path.join(__dirname, '..', 'views'))
   app.set('view engine', 'hbs')
 
   // Middlwares
